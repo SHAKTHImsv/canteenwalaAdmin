@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.5.0/firebase-firestore.js"></script>
+
+</head>
+<body class="bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 font-sans">
+
+    <!-- Navbar -->
+    <div class="bg-gradient-to-r from-blue-800 to-purple-700 text-white shadow-md">
+        <nav class="max-w-screen-xl mx-auto flex justify-between items-center p-4">
+            <div class="title">
+                <h1 class="text-2xl font-bold text-white">Canteen Wala - Admin Dashboard</h1>
+            </div>
+        </nav>
+    </div>
+
+ 
+   
+
+    <section class="grid p-8">
+        <div class="cards grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20">
+            <div class="card1 bg-black" id="Mustard">
+                <img src="mus.jpg" alt="Mustard Cafe" class="w-full h-auto rounded-lg p-5">
+                <h1 class="text-center text-xl font-semibold mt-4 mb-4 text-white">Mustard Cafe</h1>
+            </div>
+            
+            <div class="card1 bg-black" id="Cucumber">
+                <img src="cuc.jpg" alt="Cucumber Cafe" class="w-full h-auto rounded-lg p-5">
+                <h1 class="text-center text-xl font-semibold mt-4 mb-4 text-white">Cucumber Cafe</h1>
+            </div>
+            
+            <div class="card1 bg-black" id="Canteen">
+                <img src="can.jpg" alt="Saffron Cafe" class="w-full h-auto rounded-lg p-5">
+                <h1 class="text-center text-xl font-semibold mt-4 mb-4 text-white">Saffron Cafe</h1>
+            </div>
+            
+            <div class="card1 bg-black" id="Cinnamon">
+                <img src="cin.jpg" alt="Cinnamon Cafe" class="w-full h-auto rounded-lg p-5">
+                <h1 class="text-center text-xl font-semibold mt-4 mb-4 text-white">Cinnamon Cafe</h1>
+            </div>
+        </div>
+
+
+        <div id="menu-items"></div>
+    </section>
+
+       
+    
+
+
+    <script type="module" src="main-script.js"></script>
+  
+</body>
+</html>

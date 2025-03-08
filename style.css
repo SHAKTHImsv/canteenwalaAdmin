@@ -1,0 +1,259 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+body{
+  background-image: linear-gradient(to right,#9169c1,#b793d2);
+    
+}
+.navbar nav{
+    display: flex;
+    align-items: center;
+    height: 80px;
+    background-color: black;
+    color: white;
+    justify-content: space-between;
+    padding: 20px;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.home .main h1{
+    margin: 20px 0;
+    top: 100px;
+    left: 30px;
+    font-size: 40px;
+    color: black;
+    font-weight: bold;
+}
+.navbar nav li{
+    list-style: none;
+}
+.navbar nav li a{
+    text-decoration: none;
+}
+nav h1{
+    color: orange;
+    font-size: 25px;
+}
+nav .element{
+    display: flex;
+    gap: 15px;
+    
+}
+nav .element a{
+    color: white;
+    font-size: 18px;
+}
+
+.home .main{
+    display: flex;
+    width: 450px;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  
+}
+.home .sub button{
+  
+    display: block;
+    
+    font-size: 20px;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+
+    
+}
+.mainC,.HostelC {
+    margin-bottom: 30px;
+}
+.home .sub .mainC{
+    padding: 10px 100px;
+}
+.home .sub .HostelC{
+    padding: 10px 110px;
+}
+.home .sub .FoodC{
+    padding: 10px 85px;
+}
+.home .sub button a{
+    color: white;
+    text-decoration: none;
+}
+.home sub{
+    padding: 60px;
+    margin-left: 50%;
+}
+
+
+.grid{
+    position: relative;
+    padding: 40px;
+}
+.cards{
+    margin-top: 100px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    
+}
+.card1{
+    background-color: aliceblue;
+     text-align: center;
+     transition: transform 0.3s ease-in-out;
+     border: 2px solid black;
+     position: relative;
+     padding: 10px 20px;
+  
+}
+.card1 img{
+    width: 200px;
+    height: 150px;
+}
+
+  
+
+
+.login{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.portal{
+    padding: 40px;
+    background-color: rgb(64, 107, 145);
+    border-radius: 20px;
+    
+}
+.portal input{
+    margin: 10px 0;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    border-bottom: 1px solid white;
+    font-size: 18px;
+    color: white;
+}
+input::placeholder{
+    color: white;
+}
+label{
+    margin-right: 10px;
+    color: white;
+    font-size: 20px;
+}
+form button{
+    margin-top: 10px;
+    padding: 10px 50px;
+    border-radius: 20px;
+    background-color: green;
+    color: white;
+    border: none;
+    outline: none;
+}
+form h1{
+    color: white;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+
+
+
+.buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+}
+button{
+    padding: 10px 100px;
+    margin-top: 20px;
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    font-size: 20px;
+    outline: none;
+}
+
+
+
+
+.sub-cards{
+    margin-top: 100px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 20px;
+    width: 50%;
+    max-width: 1200px;
+
+}
+.sub-card1{
+    background-color: aliceblue;
+     text-align: center;
+     transition: transform 0.3s ease-in-out;
+     border: 2px solid black;
+     margin-left: 30px;
+  
+}
+.sub-card1 h1{
+    margin: 10px 0;
+}
+
+
+#menu-items p{
+    margin-top: 100px;
+    font-size: 30px;
+    color: white;
+    z-index: 100;
+}
+
+@media (max-width: 480px){
+  
+    .home .main h1{
+        margin: 20px 0;
+        margin-bottom: 30px;
+        text-align: center;
+        top: 100px;
+        left: 30px;
+        font-size: 30px;
+        color: black;
+        font-weight: bolder;
+    }
+    .home .sub .mainC{
+        padding: 10px 94px;
+        font-size: 20px;
+    }
+    .home .sub .HostelC{
+        padding: 10px 90px;
+    }
+    .home .sub .FoodC{
+        padding: 10px 81px;
+    }
+    .sub-cards{
+        margin-top: 100px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+        gap: 20px;
+        width: 80%;
+        max-width: 400px;
+    
+    }
+    .sub-card1{
+        background-color: aliceblue;
+         text-align: center;
+         transition: transform 0.3s ease-in-out;
+         border: 2px solid black;
+         margin-left: 30px;
+    }    
+}

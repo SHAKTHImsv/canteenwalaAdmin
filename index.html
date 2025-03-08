@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+</head>
+<body>
+    
+
+
+
+  <div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-96">
+        <form id="loginForm" class="space-y-6">
+            <h1 class="text-2xl font-bold text-center text-gray-800">Admin Login</h1>
+            
+            <div class="space-y-2">
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" id="email" placeholder="Enter Email" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+            
+            <div class="space-y-2">
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" id="password" placeholder="Enter Password" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+
+            <div class="flex items-center justify-between">
+                <button type="submit" class="w-full py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                    Login
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+</body>
+</html>
+  <script type="module">
+    
+
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC7gqwik4wavvokkCMHR8RzonMfhgEfRYA",
+  authDomain: "canteen-ee9be.firebaseapp.com",
+  projectId: "canteen-ee9be",
+  storageBucket: "canteen-ee9be.appspot.com",
+  messagingSenderId: "216018272764",
+  appId: "1:216018272764:web:fe4f9dcdfe7bb88070b279",
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Login Function
+document.getElementById("loginForm").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      alert("Login successful!");
+      console.log("Logged in user:", userCredential.user);
+      window.location.href = "dashboard.html";  // Redirect after login
+    })
+    .catch((error) => {
+      alert("Login failed: " + error.message);
+    });
+});
+
+  </script>
