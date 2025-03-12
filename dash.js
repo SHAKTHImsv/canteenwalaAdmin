@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (canteen === 'mainCanteen') {
             subCanteens = ['Mustard Cafe', 'Cucumber Cafe', 'Cinnamon Cafe', 'Saffron Cafe'];
         } else if (canteen === 'hostelCanteen') {
-            subCanteens = ['Marina Hostel Mess', 'Himalayan Hostel Mess', 'Neelagiri House Mess', 'Vivekanandha Hostel Mess'];
+            subCanteens = ['Marina Hostel Mess', 'Himalayan Hostel Mess', 'Nilgiri House Mess', 'Vivekanandha Hostel Mess'];
         } else if (canteen === 'foodCourt') {
             subCanteens = ['Department Store'];
         }
