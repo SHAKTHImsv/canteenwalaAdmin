@@ -3,53 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hostel Canteens</title>
+    <title>Document</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
     <script type="module" src="https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js"></script>
     <script type="module" src="https://www.gstatic.com/firebasejs/9.5.0/firebase-firestore.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Load Firebase SDK -->
-    <script type="module" src="hasscript.js">
-    </script>
-
-   
 </head>
-<body class="bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 font-sans">
+<body class="bg-purple-100">
+    <nav class="bg-purple-300 p-4 m-5 rounded-lg">
+        <div class="container mx-auto flex items-center justify-between">
+          <div class="text-purple text-2xl font-bold">Canteenwala</div>
+      
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex space-x-6">
+            <a href="#home" class="text-white hover:text-purple-800">Home</a>
+            <a href="#menu" class="text-white hover:text-purple-800">Menu</a>
+            <a href="#about" class="text-white hover:text-purple-800">About</a>
+          </div>
+      
+          <!-- Mobile Menu Button -->
+          <button onclick="setIsMobileMenuOpen(!isMobileMenuOpen)" class="md:hidden text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-purple-300 p-4">
+          <a href="#homeSection" class="block text-purple-800 py-2">Home</a>
+          <a href="#menuSection" class="block text-purple-800 py-2">Menu</a>
+          <a href="#about" class="block text-purple-800 py-2">About</a>
+        </div>
+      </nav>
 
-    <!-- Navbar -->
-    <div class="bg-gradient-to-r from-blue-800 to-purple-700 text-white shadow-md">
-        <nav class="max-w-screen-xl mx-auto flex justify-between items-center p-4">
-            <div class="title">
-                <h1 class="text-2xl font-bold text-white">Canteen Wala - Admin Dashboard</h1>
-            </div>
-        </nav>
-    </div>
-
-
-     <section class="grid p-6">
+    <section class="grid p-6">
         <div class="cards grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20">
-            <div class="card1 bg-purple-300" id="Himalayan">
-                <img src="hima.jpg" alt="" class="w-full h-auto rounded-lg p-5">
-                <h1 class="text-center text-xl font-semibold mt-4 mb-4">Himalayan Hostel Mess</h1>
+            <div class="card1 bg-black" id="Himalayan">
+                <img src="hima.jpg" alt="" class="w-full h-50 rounded-lg p-5">
+                <h1 class="text-center text-white text-xl font-semibold mt-4 mb-4">Himalayan Hostel Mess</h1>
             </div>
-            <div class="card1 bg-purple-300" id="Marina">
-                <img src="marina.jpg" alt="" class="w-full h-auto rounded-lg p-5">
-                <h1 class="text-center text-xl font-semibold mt-4 mb-4">Marina Hostel Mess</h1>
+            <div class="card1 bg-black" id="Marina">
+                <img src="marina.jpg" alt="" class="w-full h-50 rounded-lg p-5">
+                <h1 class="text-center text-white text-xl font-semibold mt-4 mb-4">Marina Hostel Mess</h1>
             </div>
            
-            <div class="card1 bg-purple-300" id="Neelagiri">
-                <img src="hima.jpg" alt="" class="w-full h-50 rounded-lg p-5"> 
-                <h1 class="text-center text-xl font-semibold mt-4 mb-4">Nilgiri House Mess</h1>
+            <div class="card1 bg-black" id="Neelagiri">
+                <img src="nil.jpg" alt="" class="w-full h-50 rounded-lg p-5"> 
+                <h1 class="text-center text-white text-xl font-semibold mt-4 mb-4">Nilgiri House Mess</h1>
             </div>
             
-            <div class="card1 bg-purple-300" id="Vivekanandha">
-                <img src="vivek.jpg" alt="" class="w-full h-auto rounded-lg p-5">
-                <h1 class="text-center text-xl font-semibold mt-4 mb-4">Vivekanandha Hostel Mess</h1>
+            <div class="card1 bg-black" id="Vivekanandha">
+                <img src="vivek.jpg" alt="" class="w-full h-50 rounded-lg p-5">
+                <h1 class="text-center text-white text-xl font-semibold mt-4 mb-4">Vivekanandha Hostel Mess</h1>
             </div>
         </div>
-
-
-         <div id="menu-items"></div>
     </section>
+
+    <div id="menu-items"></div>
+    <script type="module" src="hasscript.js"></script>
 </body>
 </html>
