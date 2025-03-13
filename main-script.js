@@ -22,48 +22,52 @@ document.addEventListener('DOMContentLoaded', function () {
   const cinnamon = document.getElementById('Cinnamon');
   const menuItems = document.getElementById('menu-items');
 
-  // Function to fetch menu items for the selected cafe
   function fetchMenuItems(canteenName, subCanteenName) {
     document.querySelector(".cards").style.display = "none";
-
+  
     const itemsRef = ref(database, 'items');  // Reference to items in the database
-
+  
     // Fetch all items from the database
     get(itemsRef).then((snapshot) => {
       if (snapshot.exists()) {
         menuItems.innerHTML = ''; // Clear existing items
-
+  
         snapshot.forEach((itemSnapshot) => {
           const itemData = itemSnapshot.val();
-
-          // Check if the canteen and subCanteen match the selected cafe
-          if (itemData.canteen === canteenName && itemData.subCanteen === subCanteenName) {
-            // Loop through the items array and display them
-            itemData.items.forEach((item, index) => {
-              menuItems.innerHTML += `
-                <div class="sub-cards">
-                  <div class="sub-card1 flex bg-black p-4 text-white flex-col gap-5 my-3">
-                    <h1 class="text-center text-2xl">${item.itemName}</h1>
-                    <h2 class="text-center text-1xl">Price: ${item.itemPrice}</h2>
-                    <button class="delete-btn bg-red-500 py-2" data-item-id="${itemSnapshot.key}" data-item-index="${index}">Delete</button>
+  
+          // Check if the itemData and items array exist
+          if (itemData && itemData.items && Array.isArray(itemData.items)) {
+            // Check if the canteen and subCanteen match the selected cafe
+            if (itemData.canteen === canteenName && itemData.subCanteen === subCanteenName) {
+              // Loop through the items array and display them
+              itemData.items.forEach((item, index) => {
+                menuItems.innerHTML += `
+                  <div class="sub-cards">
+                    <div class="sub-card1 flex bg-black p-4 text-white flex-col gap-5 my-3">
+                      <h1 class="text-center text-2xl">${item.itemName}</h1>
+                      <h2 class="text-center text-1xl">Price: ${item.itemPrice}</h2>
+                      <button class="delete-btn bg-red-500 py-2" data-item-id="${itemSnapshot.key}" data-item-index="${index}">Delete</button>
+                    </div>
                   </div>
-                </div>
-              `;
-            });
+                `;
+              });
+            }
+          } else {
+            console.warn('Item data is missing or not an array: ', itemSnapshot.key);
           }
         });
-
+  
         // Add delete event listeners to all delete buttons
         document.querySelectorAll('.delete-btn').forEach((button) => {
           button.addEventListener('click', function () {
             const itemId = this.getAttribute('data-item-id');
             const itemIndex = this.getAttribute('data-item-index');
-
+  
             // Delete the item from Firebase
             deleteItem(itemId, itemIndex);
           });
         });
-
+  
       } else {
         menuItems.innerHTML = "No items available in the selected canteen.";
       }
@@ -72,16 +76,45 @@ document.addEventListener('DOMContentLoaded', function () {
       menuItems.innerHTML = "Error fetching menu items. Please try again.";
     });
   }
+  
 
   // Function to delete an item from Firebase
   function deleteItem(itemId, itemIndex) {
     const itemRef = ref(database, 'items/' + itemId + '/items/' + itemIndex);  // Reference to the specific item
     remove(itemRef).then(() => {
       console.log("Item deleted successfully");
-      // Refresh the menu to reflect the changes
-      fetchMenuItems('mainCanteen', 'Mustard Cafe');
+
+      // After deleting an item, check if the items array is empty
+      const itemsRefAfterDeletion = ref(database, 'items/' + itemId + '/items'); // Reference to the items array
+      get(itemsRefAfterDeletion).then((snapshot) => {
+        if (snapshot.exists()) {
+          const itemsArray = snapshot.val();
+
+          // If no items are left, delete the entire item node (itemId)
+          if (itemsArray.length === 0) {
+            deleteItemNode(itemId); // Delete the entire node if the array is empty
+          } else {
+            // If items still exist, refresh the menu
+            fetchMenuItems('mainCanteen', 'Mustard Cafe'); 
+          }
+        }
+      }).catch((error) => {
+        console.error("Error checking items after deletion: ", error);
+      });
+
     }).catch((error) => {
       console.error("Error deleting item: ", error);
+    });
+  }
+
+  // Function to delete the entire node if items array is empty
+  function deleteItemNode(itemId) {
+    const itemParentRef = ref(database, 'items/' + itemId); // Reference to the parent node (itemId)
+    remove(itemParentRef).then(() => {
+      console.log("Item node deleted because all items were removed");
+      fetchMenuItems('mainCanteen', 'Mustard Cafe'); // Refresh the menu after deletion
+    }).catch((error) => {
+      console.error("Error deleting the item node: ", error);
     });
   }
 
