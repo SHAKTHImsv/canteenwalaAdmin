@@ -23,14 +23,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const Marina = document.getElementById("Marina");
     const Tanjore = document.getElementById("Tanjore");
     const Neelagiri = document.getElementById("Neelagiri");
-    const Madurai = document.getElementById("Madurai");
-    const Trichy = document.getElementById("Trichy");
-    const Vivekanandha = document.getElementById("Vivekanandha");
+   
 
     // Event listeners for each sub-canteen (sub-cards)
     Himalayan.addEventListener("click", () => fetchMenuItems('hostelCanteen', 'Himalayan'));
     Marina.addEventListener("click", () => fetchMenuItems('hostelCanteen', 'Marina'));
-    Neelagiri.addEventListener("click", () => fetchMenuItems('hostelCanteen', 'Neelagiri'));
+    Neelagiri.addEventListener("click", () => fetchMenuItems('hostelCanteen', 'Nilgiri'));
     Vivekanandha.addEventListener("click", () => fetchMenuItems('hostelCanteen', 'Vivekanandha'));
 });
 
@@ -73,9 +71,10 @@ function fetchMenuItems(canteenName, subCanteenName) {
                 button.addEventListener('click', function () {
                     const itemId = this.getAttribute('data-item-id');
                     const itemIndex = this.getAttribute('data-item-index');
-
-                    // Delete the item from Firebase
-                    deleteItem(itemId, itemIndex);
+                    const itemCard = this.closest('.sub-cards');  // Get the card element
+        
+                    // Delete the item from Firebase and hide the card
+                    deleteItem(itemId, itemIndex, itemCard);
                 });
             });
         } else {
@@ -89,17 +88,20 @@ function fetchMenuItems(canteenName, subCanteenName) {
 }
 
 // Function to delete an item from Firebase
-function deleteItem(itemId, itemIndex) {
+function deleteItem(itemId, itemIndex, itemCard) {
     const itemRef = ref(database, 'items/' + itemId + '/items/' + itemIndex);  // Reference to the specific item
     remove(itemRef).then(() => {
         console.log("Item deleted successfully");
 
-        // After deletion, we need to check if the 'items' array is empty
+        // Hide the item card from the UI
+        itemCard.style.display = 'none';  // Hide the card immediately after successful deletion
+
+        // After deletion, check if the 'items' array is empty
         const itemsRef = ref(database, 'items/' + itemId + '/items');
         get(itemsRef).then((snapshot) => {
             if (snapshot.exists()) {
                 const itemsArray = snapshot.val();
-                
+
                 // If the items array is empty, delete the entire item node
                 if (itemsArray.length === 0) {
                     const itemParentRef = ref(database, 'items/' + itemId); // Reference to the parent item node
