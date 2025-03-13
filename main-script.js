@@ -57,16 +57,17 @@ document.addEventListener('DOMContentLoaded', function () {
           }
         });
   
-        // Add delete event listeners to all delete buttons
         document.querySelectorAll('.delete-btn').forEach((button) => {
           button.addEventListener('click', function () {
             const itemId = this.getAttribute('data-item-id');
             const itemIndex = this.getAttribute('data-item-index');
-  
-            // Delete the item from Firebase
-            deleteItem(itemId, itemIndex);
+            const itemCard = this.closest('.sub-cards');  // Get the card element
+        
+            // Delete the item from Firebase and hide the card
+            deleteItem(itemId, itemIndex, itemCard);
           });
         });
+        
   
       } else {
         menuItems.innerHTML = "No items available in the selected canteen.";
@@ -79,33 +80,34 @@ document.addEventListener('DOMContentLoaded', function () {
   
 
   // Function to delete an item from Firebase
-  function deleteItem(itemId, itemIndex) {
+  function deleteItem(itemId, itemIndex, itemCard) {
     const itemRef = ref(database, 'items/' + itemId + '/items/' + itemIndex);  // Reference to the specific item
     remove(itemRef).then(() => {
       console.log("Item deleted successfully");
-
+  
+      // Hide the item card from the UI
+      itemCard.style.display = 'none'; // Hides the card without reloading the page
+  
       // After deleting an item, check if the items array is empty
       const itemsRefAfterDeletion = ref(database, 'items/' + itemId + '/items'); // Reference to the items array
       get(itemsRefAfterDeletion).then((snapshot) => {
         if (snapshot.exists()) {
           const itemsArray = snapshot.val();
-
+  
           // If no items are left, delete the entire item node (itemId)
           if (itemsArray.length === 0) {
             deleteItemNode(itemId); // Delete the entire node if the array is empty
-          } else {
-            // If items still exist, refresh the menu
-            fetchMenuItems('mainCanteen', 'Mustard Cafe'); 
           }
         }
       }).catch((error) => {
         console.error("Error checking items after deletion: ", error);
       });
-
+  
     }).catch((error) => {
       console.error("Error deleting item: ", error);
     });
   }
+  
 
   // Function to delete the entire node if items array is empty
   function deleteItemNode(itemId) {
