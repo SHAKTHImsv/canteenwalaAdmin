@@ -30,9 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Event listeners for each sub-canteen (sub-cards)
     Himalayan.addEventListener("click", () => fetchMenuItems('hostelCanteen', 'Himalayan'));
     Marina.addEventListener("click", () => fetchMenuItems('hostelCanteen', 'Marina'));
-   
-    Neelagiri.addEventListener("click", () => fetchMenuItems('hostelCanteen', 'Nilgiri'));
-  
+    Neelagiri.addEventListener("click", () => fetchMenuItems('hostelCanteen', 'Neelagiri'));
     Vivekanandha.addEventListener("click", () => fetchMenuItems('hostelCanteen', 'Vivekanandha'));
 });
 
@@ -94,15 +92,30 @@ function fetchMenuItems(canteenName, subCanteenName) {
 function deleteItem(itemId, itemIndex) {
     const itemRef = ref(database, 'items/' + itemId + '/items/' + itemIndex);  // Reference to the specific item
     remove(itemRef).then(() => {
-       
+        console.log("Item deleted successfully");
 
-        // Refresh the menu to reflect the changes
-        fetchMenuItems('hostelCanteen', 'Himalayan'); // Or any other canteen you want to refresh for
-        fetchMenuItems('hostelCanteen', 'Marina');
-        fetchMenuItems('hostelCanteen', 'Nilgiri');
-        fetchMenuItems('hostelCanteen', 'Vivekanandha');
-
-
+        // After deletion, we need to check if the 'items' array is empty
+        const itemsRef = ref(database, 'items/' + itemId + '/items');
+        get(itemsRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                const itemsArray = snapshot.val();
+                
+                // If the items array is empty, delete the entire item node
+                if (itemsArray.length === 0) {
+                    const itemParentRef = ref(database, 'items/' + itemId); // Reference to the parent item node
+                    remove(itemParentRef).then(() => {
+                        console.log("The entire item node is deleted because the items array is empty.");
+                        fetchMenuItems('hostelCanteen', 'Himalayan'); // Refresh the menu after deletion
+                    }).catch((error) => {
+                        console.error("Error deleting the item node: ", error);
+                    });
+                } else {
+                    fetchMenuItems('hostelCanteen', 'Himalayan'); // Refresh the menu to reflect the change
+                }
+            }
+        }).catch((error) => {
+            console.error("Error fetching item array after deletion: ", error);
+        });
     }).catch((error) => {
         console.error("Error deleting item: ", error);
     });
