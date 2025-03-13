@@ -65,9 +65,10 @@ function fetchMenuItems(canteenName, subCanteenName) {
                 button.addEventListener('click', function () {
                     const itemId = this.getAttribute('data-item-id');
                     const itemIndex = this.getAttribute('data-item-index');
+                    const itemCard = this.closest('.sub-cards');  // Get the card element
 
                     // Delete the item from Firebase
-                    deleteItem(itemId, itemIndex);
+                    deleteItem(itemId, itemIndex,itemCard);
                 });
             });
         } else {
@@ -82,10 +83,13 @@ function fetchMenuItems(canteenName, subCanteenName) {
 
 
 // Function to delete an item from Firebase
-function deleteItem(itemId, itemIndex) {
+function deleteItem(itemId, itemIndex, itemCard) {
     const itemRef = ref(database, 'items/' + itemId + '/items/' + itemIndex);  // Reference to the specific item
     remove(itemRef).then(() => {
         console.log("Item deleted successfully");
+
+        // Hide the item card from the UI immediately after successful deletion
+        itemCard.style.display = 'none';  // Hides the card without refreshing the page
 
         // After deletion, we need to check if the 'items' array is empty
         const itemsRef = ref(database, 'items/' + itemId + '/items');
