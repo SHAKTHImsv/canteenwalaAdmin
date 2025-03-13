@@ -98,6 +98,11 @@ function deleteItem(itemId, itemIndex) {
 
         // Refresh the menu to reflect the changes
         fetchMenuItems('hostelCanteen', 'Himalayan'); // Or any other canteen you want to refresh for
+        fetchMenuItems('hostelCanteen', 'Marina');
+        fetchMenuItems('hostelCanteen', 'Nilgiri');
+        fetchMenuItems('hostelCanteen', 'Vivekanandha');
+
+
     }).catch((error) => {
         console.error("Error deleting item: ", error);
     });
